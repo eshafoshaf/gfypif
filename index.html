@@ -1,37 +1,99 @@
 <!doctype html>
-<html lang="en"><head>
-      <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-      <meta name="description" content="">
-      <meta name="author" content="">
-      <title>GFYPIF</title>
-      <!-- Bootstrap core CSS -->
-      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" integrity="undefined" crossorigin="anonymous">
-   </head>
-   <body class="text-center" style="background-color:#222">
-      <div class="container">
-      <div class="row">
-         <div class="d-flex h-100 p-3 mx-auto flex-column">
-            <header class="mb-auto text-primary">
-               <h1 class="">G.F.Y.P.I.F.</h1>
-            </header>
-            <main role="main">
-               <div class="form-group mx-auto col-4">
-                  <label for="ventTarget">Recipient</label>
-                  <input type="text" class="form-control form-control-lg col-lg-3  mx-auto flex-column" id="ventTarget" aria-describedby="ventTargetHelp" placeholder="Enter Name">
-                  <small id="ventTargetHelp" class="form-text text-muted">Who do you want to GFYPIF?</small>
-               </div>
-            </main>
-            <footer class="mastfoot mt-auto">
-               <div class="inner">
-                  
-               </div>
-            </footer>
-         </div>
-      </div>
-      </div>
-      <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="undefined" crossorigin="anonymous"></script>
-   
+<html lang="en">
+<head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <title>GFYPIF</title>
+        <!-- Bootstrap core CSS -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" integrity="undefined" crossorigin="anonymous">
 
-</body></html>
+        <style>
+                body {
+                        background-color: #222;
+                        color: #0F0
+                }
+
+                h1 {
+                        font-size:10em;
+                }
+
+        </style>
+</head>
+<body class="text-center">
+        <div class="container" id="DataEntry" style="display:none">
+                <div class="row">
+                        <div class="d-flex h-100 p-3 mx-auto flex-column">
+                                <header class="mb-auto text-primary">
+                                        <h1 class="">G.F.Y.P.I.F.</h1>
+                                </header>
+                                <main role="main">
+                                        <div class="form-group mx-auto col-4">
+                                                <label for="ventTarget">Recipient:</label>
+                                                <input type="text" class="form-control form-control-lg col-lg-3  mx-auto flex-column" id="ventTarget" aria-describedby="ventTargetHelp" placeholder="Enter Name">
+                                                <small id="ventTargetHelp" class="form-text text-muted">Who do you want to GFYPIF?</small>
+                                        </div>
+                                </main>
+                                <footer class="mastfoot mt-auto">
+                                        <div class="inner">
+                                        <a class="btn btn-danger" onclick="window.location.href = './Index.html?t=' + $('#ventTarget').val();">Submit</a>
+                                        </div>
+                                </footer>
+                        </div>
+                </div>
+        </div>
+        <div class="container" id="GFYPIF" style="display:none">
+                <div class="row">
+                        <div class="mx-auto">
+                                <h1 id="Hey" style="display:none">Hey</h1>
+                                <h1 id="GFYTarget" style="display:none"></h1>
+                                <h1 id="GFYMsg" style="display:none">Go Fuck Yourself and get Punched In the Face</h1>
+                        </div>
+                </div>
+        </div>
+
+
+
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="undefined" crossorigin="anonymous"></script>
+
+        <script>
+                function getUrlParameter(sParam) {
+                        var sPageURL = window.location.search.substring(1),
+                                sURLVariables = sPageURL.split('&'),
+                                sParameterName,
+                                i;
+
+                        for (i = 0; i < sURLVariables.length; i++) {
+                                sParameterName = sURLVariables[i].split('=');
+
+                                if (sParameterName[0] === sParam) {
+                                        return typeof sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+                                }
+                        }
+                        return false;
+                }
+
+                $(document).ready(function () {
+                        if (getUrlParameter('t') == false) {
+                                $('#DataEntry').show();
+                        } else {
+                                $('#GFYPIF').show();
+                                var target = getUrlParameter('t');
+                                $("#Hey").slideDown('slow');
+                                setTimeout(function () {
+                                        $('#GFYTarget').html(target + ',');
+                                        $("#GFYTarget").slideDown('slow');
+                                        setTimeout(function () {
+                                                $("#GFYMsg").slideDown('slow');
+                                        }, 800);
+                                }, 800);
+                        }
+                });
+        </script>
+
+
+
+</body>
+</html>
