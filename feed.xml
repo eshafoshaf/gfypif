@@ -1,0 +1,64 @@
+<rss xmlns:podcast="https://podcastindex.org/namespace/1.0" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" xml:lang="en" version="2.0">
+<channel>
+<title>
+<![CDATA[ On PARE ]]>
+</title>
+<link>https://rss.com/podcasts/onpare</link>
+<atom:link href="https://media.rss.com/onpare/feed.xml" rel="self" type="application/rss+xml"/>
+<description>
+<![CDATA[ On Politics, Abortion, Religion, and Economics. A comedic look at otherwise boring topics. ]]>
+</description>
+<generator>RSS.com v1.0.20</generator>
+<lastBuildDate>Wed, 23 Jun 2021 23:28:55 GMT</lastBuildDate>
+<language>en</language>
+<copyright>
+<![CDATA[ Eric Shafer 2021 ]]>
+</copyright>
+<itunes:image href="https://media.rss.com/onpare/20210623_232815_9cd7f5960fbe31f311fe7661a95c92dc.jpg"/>
+<image>
+<url>https://media.rss.com/onpare/20210623_232815_9cd7f5960fbe31f311fe7661a95c92dc.jpg</url>
+<title>On PARE</title>
+<link>https://rss.com/podcasts/onpare</link>
+</image>
+<itunes:summary>
+<![CDATA[ On Politics, Abortion, Religion, and Economics. A comedic look at otherwise boring topics. ]]>
+</itunes:summary>
+<podcast:locked owner="onpare@shafernotes.com">Yes</podcast:locked>
+<itunes:author>Eric Shafer</itunes:author>
+<itunes:owner>
+<itunes:name>Eric Shafer</itunes:name>
+<itunes:email>onpare@shafernotes.com</itunes:email>
+</itunes:owner>
+<itunes:explicit>yes</itunes:explicit>
+<itunes:type>episodic</itunes:type>
+<itunes:category text="Comedy">
+<itunes:category text="Stand-Up"/>
+</itunes:category>
+<itunes:category text="History"/>
+<itunes:category text="Society & Culture">
+<itunes:category text="Philosophy"/>
+</itunes:category>
+<item>
+<title>
+<![CDATA[ On Religion ]]>
+</title>
+<itunes:title>
+<![CDATA[ On Religion ]]>
+</itunes:title>
+<itunes:summary>We take a look at new concepts in Religion.</itunes:summary>
+<description>
+<![CDATA[ <p>We take a look at new concepts in Religion.</p> ]]>
+</description>
+<link>https://rss.com/podcasts/onpare/224851</link>
+<enclosure url="https://media.rss.com/onpare/20210623_220639_f99bf4ac980ccc6c5988108763834759.mp3" length="2780235" type="audio/mpeg"/>
+<guid isPermaLink="false">fa662c5d-e983-35f0-eaf7-cb6f6d57e1d0</guid>
+<itunes:image href="https://media.rss.com/onpare/20210623_232854_da30e101165d428fdabb1362f0173ab3.jpg"/>
+<itunes:duration>196</itunes:duration>
+<itunes:episodeType>full</itunes:episodeType>
+<itunes:episode>1</itunes:episode>
+<itunes:season>1</itunes:season>
+<itunes:explicit>no</itunes:explicit>
+<pubDate>Wed, 23 Jun 2021 22:06:41 GMT</pubDate>
+</item>
+</channel>
+</rss>
