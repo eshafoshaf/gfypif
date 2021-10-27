@@ -1,0 +1,147 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+		  <meta charset="utf-8">
+		  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		  <meta name="description" content="">
+		  <meta name="author" content="">
+		  <title>Breathe</title>
+		  <!-- Bootstrap core CSS -->
+		  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" integrity="undefined" crossorigin="anonymous">
+
+		  <style>
+				body {
+						background-color: #222;
+						color: #0F0;
+						font-size: 2.2vw;
+				}
+
+				h1 {
+						font-size: 4vw;
+				}
+		  </style>
+</head>
+<body class="text-center">
+		  <div id="Step0" class="container">
+		  		  <div class="row">
+		  		  		  <div class="d-flex h-100 p-3 mx-auto flex-column">
+		  		  		  		  <header class="mb-auto text-primary">
+		  		  		  		  		  <h1 class="">Stop. It's time to regroup.</h1>
+		  		  		  		  </header>
+		  		  		  		  <main role="main">
+
+		  		  		  		  </main>
+		  		  		  		  <footer class="mastfoot mt-auto">
+		  		  		  		  		  <div class="inner">
+		  		  		  		  		  		  <a href="#" class="NextStep btn btn-success">Let's get started...</a>
+		  		  		  		  		  </div>
+		  		  		  		  </footer>
+		  		  		  </div>
+		  		  </div>
+		  </div>
+
+		  <div class="container" id="Step1" style="display:none">
+		  		  <div class="row">
+		  		  		  <div class="mx-auto">
+		  		  		  		  <h2 class="text-primary">Start by Breathing.</h2>
+		  		  		  		  <h3>Take your time. Breathe with the words below and hold your breathe each time.</h3>
+		  		  		  		  <h1 id="breathing" class="text-success" style="display:none">Breathe In.</h1>
+		  		  		  </div>
+		  		  		  <footer class="mastfoot mt-auto" id="BreatheNext">
+		  		  		  		  <!-- style="display:none"  -->
+		  		  		  		  <div class="inner">
+		  		  		  		  		  <a href="#" class="NextStep btn btn-success">OK. Let's move on.</a>
+		  		  		  		  </div>
+		  		  		  </footer>
+		  		  </div>
+		  </div>
+
+
+		  <div id="Step2" style="display:none">
+		  		  <div >
+		  		  		  <main >
+		  		  		  		  <h1 class="text-primary">Look Around.</h1>
+		  		  		  		  <h3>Right now, right here, you are OK.</h3>
+		  		  		  		  <h3>Even though things seem chaotic, every turn makes a new connection.</h3>
+								  <h4>click on the pattern</h4>
+		  		  		  		  <css-doodle click-to-update>
+		  		  		  		  		  <style>
+												:doodle {
+														@grid: 30 / 100vmax;
+														background: #0a0c27;
+												}
+
+												--hue: calc(180 + 1.5 * @row * @col);
+												background: hsl(var(--hue), 50%, 70%);
+												margin: -.5px;
+												transition: @r(.5s) ease;
+												clip-path: polygon(@pick(
+													 '0 0, 100% 0, 100% 100%',
+													 '0 0, 100% 0, 0 100%',
+													 '0 0, 100% 100%, 0 100%',
+													 '100% 0, 100% 100%, 0 100%'
+													 ));
+		  		  		  		  		  </style>
+		  		  		  		  </css-doodle>
+		  		  		  </main>
+		  		  		  <footer class="mastfoot mt-auto" style="display:none">
+		  		  		  		  <div class="inner">
+		  		  		  		  		  <a href="#" class="NextStep btn btn-success">OK. Let's move on.</a>
+		  		  		  		  </div>
+		  		  		  </footer>
+		  		  </div>
+		  </div>
+
+
+		  <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+		  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="undefined" crossorigin="anonymous"></script>
+		  <script src="https://unpkg.com/css-doodle@0.20.2/css-doodle.min.js"></script>
+
+		  <script>
+				var currStep = 0;
+
+				// TODO Get count of all Steps and set Max Step
+				var maxStep = 2;
+
+				$(".NextStep").click(function () {
+						  $('#Step' + currStep).hide();
+						  currStep++;
+						  if (currStep > maxStep) {
+									 currStep = 0;
+						  }
+						  $('#Step' + currStep).show();
+						  switch (currStep) {
+									 case 1:
+												Step1();
+												break;
+						  }
+				});
+
+				$(document).ready(function () {
+						  $("#cp7").show();
+				});
+
+				function Step1() {
+						  var breatheLength = 1000;
+						  $('#breathing').delay(2000).fadeIn(breatheLength).fadeOut(breatheLength, function () {
+									 $('#breathing').text('Breathe Out.').removeClass('text-success').addClass('text-warning');
+									 $('#breathing').fadeIn(breatheLength).fadeOut(breatheLength, function () {
+												$('#breathing').text('Breathe In.').removeClass('text-warning').addClass('text-success');;
+												$('#breathing').fadeIn(breatheLength).fadeOut(breatheLength, function () {
+														  $('#breathing').text('Breathe Out.').removeClass('text-success').addClass('text-warning');;
+														  $('#breathing').fadeIn(breatheLength).fadeOut(breatheLength, function () {
+																	 $('#BreatheNext').fadeIn(1000);
+														  });
+												});
+									 });
+						  });
+
+				}
+
+
+		  </script>
+
+
+
+</body>
+</html>
