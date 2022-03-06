@@ -1,0 +1,186 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="jquery-1.10.1.min.js"></script>
+    <style>
+        #wrapper {
+            position: relative;
+            width: 900px;
+            height: 900px;
+        }
+
+        #starCanvas, #vectorCanvas {
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            width: 900px;
+            height: 900px;
+        }
+    </style>
+</head>
+<body style="background-color: black;color:white">
+    <div id="wrapper">
+        <canvas id="starCanvas" style="border: 1px solid black"></canvas>
+        <canvas id="vectorCanvas" style="border: 1px solid black"></canvas>
+    </div>
+    <br />
+    VX: <input id="VX" type="text" />
+    <br />
+    VY: <input id="VY" type="text" />
+</body>
+</html>
+
+<script>
+    // inside main_javascript.js
+
+    var starcan = document.getElementById('starCanvas');
+    var starctx = starcan.getContext('2d');
+
+    var vectorcan = document.getElementById('vectorCanvas');
+    var vectorctx = vectorcan.getContext('2d');
+
+    // canvas width and height
+    var CanvasSize = 900;
+    starcan.width = CanvasSize;
+    starcan.height = CanvasSize;
+    vectorcan.width = CanvasSize;
+    vectorcan.height = CanvasSize;
+
+
+    var img = new Image();
+
+    img.src = "spacebg.png";
+    if (Date.now() % 10 == 0)
+        img.src = "https://www.gfypif.com/KNS.jpg";
+
+    var xpos = 0;
+    var ypos = 0;
+
+    var vx = 0;
+    var vy = 0;
+
+    $('#VX').val(vx);
+    $('#VY').val(vy);
+
+    window.onload = function () {
+
+        function loop() {
+            starctx.clearRect(0, 0, CanvasSize, CanvasSize);
+
+            // Draw main image
+            starctx.drawImage(img, xpos, ypos, CanvasSize, CanvasSize);
+            starctx.drawImage(img, xpos - starcan.width, ypos, CanvasSize, CanvasSize);
+            starctx.drawImage(img, xpos - starcan.width, ypos - starcan.height, CanvasSize, CanvasSize);
+            starctx.drawImage(img, xpos - starcan.width, ypos + starcan.height, CanvasSize, CanvasSize);
+
+            starctx.drawImage(img, xpos, ypos - starcan.height, CanvasSize, CanvasSize);
+            starctx.drawImage(img, xpos, ypos + starcan.height, CanvasSize, CanvasSize);
+
+            starctx.drawImage(img, xpos + starcan.width, ypos, CanvasSize, CanvasSize);
+            starctx.drawImage(img, xpos + starcan.width, ypos - starcan.height, CanvasSize, CanvasSize);
+            starctx.drawImage(img, xpos + starcan.width, ypos + starcan.height, CanvasSize, CanvasSize);
+
+
+            // Vectors
+            vectorctx.clearRect(0, 0, 900, 900);
+            vectorctx.beginPath();
+            var MidCanvas = Math.round(CanvasSize / 2);
+            canvas_arrow(vectorctx, MidCanvas, MidCanvas, MidCanvas + vx * 40, MidCanvas + vy * 40);
+            if (isDragging)
+                canvas_arrow(vectorctx, DragStartX, DragStartY, DragCurrX, DragCurrY);
+            vectorctx.stroke();
+            vectorctx.beginPath();
+            draw_axis(vectorctx, CanvasSize)
+            vectorctx.stroke();
+
+            // update image height
+            xpos += vx;
+            ypos += vy;
+
+            // reseting the images when the first image entirely exits the screen
+            if (xpos >= starcan.width)
+                xpos -= starcan.width;
+            if (ypos >= starcan.height)
+                ypos -= starcan.height;
+            if (xpos <= -starcan.width)
+                xpos += starcan.width;
+            if (ypos <= -starcan.height)
+                ypos += starcan.height;
+
+
+            // this function creates a 60fps animation by scheduling a
+            // loop function call before the
+            // next redraw every time it is called
+            window.requestAnimationFrame(loop);
+        }
+
+        // this initiates the animation by calling the loop function
+        // for the first time
+        loop();
+    }
+
+    var DragStartX = 0;
+    var DragStartY = 0;
+    var DragCurrX = 0;
+    var DragCurrY = 0;
+    var DeltaSpeed = 40;
+    var isDragging = false;
+    $(document).ready(function () {
+        $("body").mousedown(function (e) {
+            var parentOffset = $(this).parent().offset();
+            DragStartX = e.pageX - parentOffset.left;
+            DragStartY = e.pageY - parentOffset.top;
+            isDragging = true;
+        });
+
+        $("body").mousemove(function (e) {
+            var parentOffset = $(this).parent().offset();
+            DragCurrX = e.pageX - parentOffset.left;
+            DragCurrY = e.pageY - parentOffset.top;
+        });
+
+        $("body").mouseup(function (e) {
+            var parentOffset = $(this).parent().offset();
+            var relX = e.pageX - parentOffset.left;
+            vx += -Math.round((DragStartX - relX) / DeltaSpeed);
+            var relY = e.pageY - parentOffset.top;
+            vy += -Math.round((DragStartY - relY) / DeltaSpeed);
+
+            $('#VX').val(vx);
+            $('#VY').val(-vy);
+            isDragging = false;
+        });
+
+    });
+
+
+
+    function canvas_arrow(context, fromx, fromy, tox, toy) {
+        var headlen = 20; // length of head in pixels
+        var dx = tox - fromx;
+        var dy = toy - fromy;
+        var angle = Math.atan2(dy, dx);
+        context.moveTo(fromx, fromy);
+        context.lineTo(tox, toy);
+        context.lineTo(tox - headlen * Math.cos(angle - Math.PI / 6), toy - headlen * Math.sin(angle - Math.PI / 6));
+        context.moveTo(tox, toy);
+        context.lineTo(tox - headlen * Math.cos(angle + Math.PI / 6), toy - headlen * Math.sin(angle + Math.PI / 6));
+        context.strokeStyle = '#ff0000';
+        context.lineWidth = 5;
+    }
+
+    function draw_axis(context, CanvasSize) {
+        var MidCanvas = Math.round(CanvasSize / 2);
+        context.strokeStyle = '#006600';
+        context.lineWidth = 1;
+        vectorctx.moveTo(0, MidCanvas);
+        vectorctx.lineTo(CanvasSize, MidCanvas);
+        vectorctx.moveTo(MidCanvas, 0);
+        vectorctx.lineTo(MidCanvas, CanvasSize);
+
+    }
+
+</script>
