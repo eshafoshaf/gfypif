@@ -89,7 +89,7 @@
         $(document).ready(function () {
             // BS5: jQuery's $.fn.val() still works fine; replaced inline onclick with a handler
             $('#submitBtn').on('click', function () {
-                window.location.href = './Index.html?t=' + $('#ventTarget').val();
+                window.location.href = './index.html?t=' + $('#ventTarget').val();
             });
 
             if (getUrlParameter('t') == false) {
