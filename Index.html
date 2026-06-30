@@ -2,20 +2,18 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
     <title>GFYPIF</title>
-    <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" integrity="undefined" crossorigin="anonymous">
-
+    <!-- Bootstrap 5 CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <style>
         body {
             background-color: #222;
             color: #0F0;
             font-size: 3.2vw;
         }
-
         h1 {
             font-size: 6vw;
         }
@@ -26,7 +24,6 @@
         window.dataLayer = window.dataLayer || [];
         function gtag() { dataLayer.push(arguments); }
         gtag('js', new Date());
-
         gtag('config', 'G-DNZ0K9JYXS');
     </script>
 </head>
@@ -35,31 +32,34 @@
         <div class="row">
             <div class="d-flex h-100 p-3 mx-auto flex-column">
                 <header class="mb-auto text-primary">
-                    <h1 class="">G.F.Y.P.I.F.</h1>
+                    <h1>G.F.Y.P.I.F.</h1>
                 </header>
                 <main role="main">
-                    <div class="form-group mx-auto col-6">
-                        <label for="ventTarget">Recipient:</label>
-                        <input type="text" class="form-control form-control-lg col-lg-3  mx-auto flex-column" id="ventTarget" aria-describedby="ventTargetHelp" placeholder="Enter Name">
-                        <small id="ventTargetHelp" class="form-text text-muted">Who do you want to GFYPIF?</small>
+                    <!-- BS5: form-group removed; use mb-3. col-* sizing on inputs deprecated — wrap in a col instead -->
+                    <div class="mb-3 mx-auto col-6">
+                        <label for="ventTarget" class="form-label">Recipient:</label>
+                        <input type="text" class="form-control form-control-lg" id="ventTarget" aria-describedby="ventTargetHelp" placeholder="Enter Name">
+                        <!-- BS5: form-text replaces form-text text-muted -->
+                        <div id="ventTargetHelp" class="form-text">Who do you want to GFYPIF?</div>
                     </div>
                 </main>
-                <footer class="mastfoot mt-auto">
+                <footer class="mt-auto">
                     <div class="inner">
-                        <a class="btn btn-danger" onclick="window.location.href = './Index.html?t=' + $('#ventTarget').val();">Submit</a>
+                        <a class="btn btn-danger" id="submitBtn">Submit</a>
                     </div>
                 </footer>
             </div>
         </div>
     </div>
+
     <div class="container" id="GFYPIF" style="display:none">
         <div class="row">
             <div class="mx-auto">
                 <h1 id="Hey" style="display:none">Hey</h1>
                 <h1 id="GFYTarget" style="display:none"></h1>
-                <h1 id="GFYMsg" style="display:none">Go Fuck Yourself <br />and get<br /> Punched In the Face</h1>
+                <h1 id="GFYMsg" style="display:none">Go Fuck Yourself <br>and get<br> Punched In the Face</h1>
             </div>
-            <div style="bottom: 0;margin:0;padding:0;position:fixed">
+            <div class="fixed-bottom py-3">
                 <div class="container">
                     <a href="./" class="btn btn-info">GFYPIF someone else</a>
                 </div>
@@ -67,21 +67,18 @@
         </div>
     </div>
 
-
-
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="undefined" crossorigin="anonymous"></script>
-
+    <!-- jQuery (still used for slideDown; optional if you swap to vanilla JS) -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <!-- Bootstrap 5 JS bundle (includes Popper) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc4s9bIOgUxi8T/jzmE3+zzwCPXkT6y6SJNqNnmqymh" crossorigin="anonymous"></script>
     <script>
         function getUrlParameter(sParam) {
             var sPageURL = window.location.search.substring(1),
                 sURLVariables = sPageURL.split('&'),
                 sParameterName,
                 i;
-
             for (i = 0; i < sURLVariables.length; i++) {
                 sParameterName = sURLVariables[i].split('=');
-
                 if (sParameterName[0] === sParam) {
                     return typeof sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
                 }
@@ -90,6 +87,11 @@
         }
 
         $(document).ready(function () {
+            // BS5: jQuery's $.fn.val() still works fine; replaced inline onclick with a handler
+            $('#submitBtn').on('click', function () {
+                window.location.href = './Index.html?t=' + $('#ventTarget').val();
+            });
+
             if (getUrlParameter('t') == false) {
                 $('#DataEntry').show();
             } else {
